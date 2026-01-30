@@ -67,3 +67,14 @@ html.lenis {
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb; /* Blue glow on hover */
 }
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fix for horizontal "overscroll" on iOS */
+body {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
