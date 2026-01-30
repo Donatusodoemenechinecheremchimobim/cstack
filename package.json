@@ -1,0 +1,28 @@
+{
+  "name": "cstack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@studio-freight/react-lenis": "^0.0.47",
+    "firebase": "^12.8.0",
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.292.0",
+    "next": "14.0.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-simple-typewriter": "^5.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0",
+    "postcss": "^8",
+    "tailwindcss": "^3"
+  }
+}
