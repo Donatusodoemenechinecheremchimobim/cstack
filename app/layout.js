@@ -1,33 +1,27 @@
 import "./globals.css";
-import Navbar from "../components/Navbar";
+// Note: We use .. to go up one folder to find components
+import Navbar from "../components/Navbar"; 
 import Footer from "../components/Footer";
-import SmoothScrolling from "../components/SmoothScrolling"; 
-import ActiveUsers from "../components/ActiveUsers";
-import Preloader from "../components/Preloader";
-import { AuthProvider } from "../context/AuthContext"; // <--- 1. IMPORT THIS
+import WhatsAppButton from "../components/WhatsAppButton"; 
+import SocialSidebar from "../components/SocialSidebar";   
+import { AuthContextProvider } from "../context/AuthContext";
 
 export const metadata = {
-  title: "CSTACK | Digital Systems",
-  description: "High-End Full Stack Studio",
+  title: "CSTACK | Full-Stack Engineering",
+  description: "High-performance digital systems for the ambitious.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased bg-black text-white">
-        
-        {/* 2. WRAP EVERYTHING INSIDE AUTHPROVIDER */}
-        <AuthProvider>
-          <Preloader />
-          <ActiveUsers />
-
-          <SmoothScrolling>
-            <Navbar />
-            {children}
-            <Footer />
-          </SmoothScrolling>
-        </AuthProvider>
-
+      <body className="bg-black text-white selection:bg-blue-600 selection:text-white">
+        <AuthContextProvider>
+          <Navbar />
+          <SocialSidebar />
+          {children}
+          <WhatsAppButton />
+          <Footer />
+        </AuthContextProvider>
       </body>
     </html>
   );
