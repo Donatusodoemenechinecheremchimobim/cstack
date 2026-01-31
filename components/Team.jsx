@@ -11,7 +11,7 @@ const teamMembers = [
     image: "/team/member1.jpg", 
   },
   {
-    name: "Princewill Ezechukwu",
+    name: "Light Onuchuku",
     role: "Head of Engineering",
     bio: "Full-stack expert with a focus on scalable React architectures and cloud infrastructure.",
     image: "/team/member2.jpg",
@@ -23,7 +23,7 @@ const teamMembers = [
     image: "/team/member3.jpg",
   },
   {
-    name: "Light Onuchuku",
+    name: "Princewill Ezechukwu",
     role: "AI Research Lead",
     bio: "Integrating machine learning models into everyday business logic.",
     image: "/team/member4.jpg",
@@ -35,7 +35,7 @@ const teamMembers = [
     image: "/team/member5.jpg",
   },
   {
-    name: "Martins Nwokekwu",
+    name: "Martins Nwokeukwu",
     role: "Operations Lead",
     bio: "Keeping the studio running efficiently and projects delivering on time.",
     image: "/team/member6.jpg",

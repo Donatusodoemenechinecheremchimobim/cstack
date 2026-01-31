@@ -5,17 +5,17 @@ import { Check, Zap, Crown, Shield, Hexagon } from "lucide-react";
 
 const plans = [
   {
-    name: "Protocol A",
+    name: "Plan A",
     price: "15,000",
     desc: "Perfect for quick fixes and single-page builds.",
     features: ["One Active Request", "React / Next.js", "Average 48h Delivery", "Slack Comms"],
     icon: Zap, color: "blue", popular: false,
   },
   {
-    name: "Protocol B",
+    name: "Plan B",
     price: "25,000",
     desc: "Full-scale engineering for growing startups.",
-    features: ["Two Active Requests", "Mobile + Web (Flutter)", "Priority DevOps", "Dedicated Project Manager", "24h Turnaround"],
+    features: ["Two Active Requests", "Mobile + Web (Flutter)", "Priority DevOps", "Dedicated Project Manager", "Average 48h Delivery"],
     icon: Crown, color: "purple", popular: true,
   },
   {
@@ -45,8 +45,8 @@ export default function Pricing() {
     }
 
     const paymentLinks = {
-      "Protocol A": "https://flutterwave.com/pay/YOUR_15K_LINK",
-      "Protocol B": "https://flutterwave.com/pay/YOUR_25K_LINK",
+      "Plan A": "https://flutterwave.com/pay/YOUR_15K_LINK",
+      "Plan B": "https://flutterwave.com/pay/YOUR_25K_LINK",
       "Enterprise": "https://flutterwave.com/pay/YOUR_35K_LINK"
     };
 
@@ -67,7 +67,7 @@ export default function Pricing() {
         {/* HEADER */}
         <div className="text-center mb-4 px-6">
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter">
-            CHOOSE YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">PROTOCOL</span>
+            CHOOSE YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">PLAN</span>
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Scalable subscription models for every stage of growth. Pause or cancel anytime.

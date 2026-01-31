@@ -1,136 +1,140 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Shield, User, LogOut } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+
+const navLinks = [
+  { name: "Services", href: "/services" },
+  { name: "Projects", href: "/work" },
+  { name: "Pricing", href: "/pricing" },
+];
 
 export default function Navbar() {
+  const { user, logOut } = useAuth(); // <--- Get the user status
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Lock body scroll when mobile menu is open
+  // Handle scroll effect
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isOpen]);
-
-  const navLinks = [
-    { name: "Work", href: "/work" },
-    { name: "Services", href: "/services" },
-    { name: "Team", href: "/team" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Contact", href: "/contact" },
-  ];
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <>
-      <nav className="fixed w-full z-50 top-0 left-0 bg-black/50 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-          
-          {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2 group cursor-pointer z-50">
-             <div className="h-8 w-8 bg-white text-black font-extrabold flex items-center justify-center rounded hover:rotate-12 transition transform">
-               C
-             </div>
-             <span className="font-bold text-xl tracking-tighter mix-blend-difference">CSTACK</span>
-          </Link>
+    // FIXED: Using 'inset-x-0' instead of 'w-full' to prevent horizontal overflow
+    <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
+      scrolled ? "bg-black/80 backdrop-blur-xl border-b border-white/10 py-4" : "bg-transparent py-6"
+    }`}>
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+            <Shield size={18} className="text-white" />
+          </div>
+          <span className="text-xl font-black tracking-tighter uppercase">CSTACK</span>
+        </Link>
 
-          {/* DESKTOP LINKS */}
-          <div className="hidden md:flex gap-8 items-center">
-            {navLinks.map((link) => (
+        {/* DESKTOP LINKS */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          {/* DYNAMIC BUTTON LOGIC */}
+          {user ? (
+            <div className="flex items-center gap-4">
               <Link 
-                key={link.name} 
-                href={link.href} 
-                className="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors"
+                href="/dashboard" 
+                className="px-5 py-2.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-blue-500 transition-all flex items-center gap-2"
               >
-                {link.name}
+                <User size={14} /> Dashboard
               </Link>
-            ))}
-          </div>
-
-          {/* CTA BUTTON & LOGIN */}
-          <div className="hidden md:flex items-center gap-6">
-             {/* ADDED LOGIN LINK */}
-             <Link href="/login" className="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors">
-               Log In
-             </Link>
-
-             {/* UPDATED BUTTON: Let's Build -> Pricing */}
-             <Link href="/pricing" className="bg-white text-black px-6 py-2 text-xs font-bold uppercase tracking-widest hover:bg-gray-200 transition duration-300 rounded-sm">
-               Let's Build
-             </Link>
-          </div>
-
-          {/* MOBILE TOGGLE */}
-          <div className="md:hidden z-50">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-white">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+              <button 
+                onClick={logOut}
+                className="text-gray-400 hover:text-red-500 transition-colors"
+                title="Sign Out"
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
+          ) : (
+            <Link 
+              href="/login" 
+              className="px-5 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-gray-200 transition-all"
+            >
+              Client Login
+            </Link>
+          )}
         </div>
-      </nav>
 
-      {/* FULL SCREEN MOBILE MENU OVERLAY */}
+        {/* MOBILE TOGGLE */}
+        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col justify-center px-8 md:hidden"
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-black border-b border-white/10 overflow-hidden"
           >
-            <div className="flex flex-col gap-8">
-              
-              {/* Added Login to Mobile Menu */}
-              <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0 }}
+            <div className="flex flex-col gap-6 p-8">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name} 
+                  href={link.href} 
+                  onClick={() => setIsOpen(false)}
+                  className="text-2xl font-black uppercase tracking-tighter"
                 >
+                  {link.name}
+                </Link>
+              ))}
+
+              <div className="border-t border-white/10 pt-6 mt-2">
+                {user ? (
+                  <div className="flex flex-col gap-4">
+                     <Link 
+                      href="/dashboard" 
+                      onClick={() => setIsOpen(false)}
+                      className="w-full py-4 bg-blue-600 text-white text-center font-black uppercase tracking-widest rounded-xl"
+                    >
+                      Open Dashboard
+                    </Link>
+                    <button 
+                      onClick={() => { logOut(); setIsOpen(false); }}
+                      className="text-left text-red-500 font-black uppercase tracking-widest text-sm"
+                    >
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
                   <Link 
                     href="/login" 
                     onClick={() => setIsOpen(false)}
-                    className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 hover:to-white transition-all flex items-center justify-between group"
+                    className="block w-full py-4 bg-white text-black text-center font-black uppercase tracking-widest rounded-xl"
                   >
-                    Log In
-                    <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity -translate-x-10 group-hover:translate-x-0" />
+                    Client Login
                   </Link>
-                </motion.div>
-
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (i + 1) * 0.1 }}
-                >
-                  <Link 
-                    href={link.href} 
-                    onClick={() => setIsOpen(false)}
-                    className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 hover:to-white transition-all flex items-center justify-between group"
-                  >
-                    {link.name}
-                    <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity -translate-x-10 group-hover:translate-x-0" />
-                  </Link>
-                </motion.div>
-              ))}
+                )}
+              </div>
             </div>
-
-            {/* Mobile Footer Info */}
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ delay: 0.5 }}
-              className="absolute bottom-12 left-8 text-gray-500 text-xs font-mono"
-            >
-              <p>PORT HARCOURT, NG</p>
-              <p>SYSTEM ONLINE</p>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </nav>
   );
 }

@@ -10,8 +10,8 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-2xl font-extrabold tracking-tighter text-white mb-4">CSTACK</h2>
             <p className="text-gray-400 max-w-xs text-sm leading-relaxed">
-              A digital product studio engineering the future of web and mobile. 
-              Based in Nigeria. Operating Globally.
+              A digital product studio, engineering the future of web and mobile. 
+              Based in Nigeria, operating globally.
             </p>
           </div>
 

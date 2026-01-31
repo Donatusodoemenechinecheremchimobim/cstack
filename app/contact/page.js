@@ -27,7 +27,7 @@ export default function Contact() {
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
                 <Mail size={18} />
               </div>
-              <span className="text-sm font-medium">cherem73za@gmail.com</span>
+              <span className="text-sm font-medium">cstackng@gmail.com</span>
             </div>
             <div className="flex items-center gap-4 text-gray-300 hover:text-white transition">
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
