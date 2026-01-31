@@ -1,9 +1,11 @@
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import WhatsAppButton from "./components/WhatsAppButton";
+import WhatsAppButton from "../components/WhatsAppButton"; // <--- Correct Path
+import SocialSidebar from "../components/SocialSidebar";
+
 import { AuthContextProvider } from "../context/AuthContext";
-import SocialSidebar from "./components/SocialSidebar"; // Assuming you created this earlier
+ // Assuming you created this earlier
 
 export const metadata = {
   title: "CSTACK | Full-Stack Engineering",
