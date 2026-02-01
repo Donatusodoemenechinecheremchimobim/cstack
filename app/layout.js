@@ -3,7 +3,8 @@ import "./globals.css";
 import Navbar from "../components/Navbar"; 
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton"; 
-import SocialSidebar from "../components/SocialSidebar";   
+import SocialSidebar from "../components/SocialSidebar"; 
+import GhostCursors from "../components/GhostCursors";  
 import { AuthContextProvider } from "../context/AuthContext";
 
 export const metadata = {
