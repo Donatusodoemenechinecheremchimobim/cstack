@@ -96,10 +96,10 @@ export default function Home() {
 
           <div className="flex flex-col md:flex-row justify-center gap-4 mt-8">
              <Link href="/pricing" className="bg-white text-black px-8 py-4 font-bold rounded-lg hover:scale-105 transition shadow-[0_0_40px_rgba(255,255,255,0.2)] uppercase tracking-widest text-sm">
-               View Protocols
+               View Plans
              </Link>
              <Link href="/dashboard" className="px-8 py-4 border border-white/20 text-white rounded-lg font-bold hover:bg-white/10 transition uppercase tracking-widest text-sm">
-               Command Center
+               Dashboard 
              </Link>
           </div>
         </motion.div>
@@ -131,7 +131,7 @@ export default function Home() {
       {/* 4. TEAM SECTION - FIXED: Added id="team" */}
       <section id="team" className="py-24 border-t border-white/10 scroll-mt-24">
         <div className="text-center mb-16 px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">The Leadership</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">The Team</h2>
           <p className="text-gray-400 text-sm md:text-base">Meet the minds behind the systems.</p>
         </div>
         <Team />
