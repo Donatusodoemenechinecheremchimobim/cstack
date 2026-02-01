@@ -1,6 +1,21 @@
 "use client";
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Github } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
+
+// 1. The Official X Logo (Custom SVG)
+const XLogo = ({ size = 14, className }) => (
+  <svg 
+    role="img" 
+    viewBox="0 0 24 24" 
+    xmlns="http://www.w3.org/2000/svg" 
+    fill="currentColor" 
+    width={size} 
+    height={size} 
+    className={className}
+  >
+    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+  </svg>
+);
 
 // 👇 EDIT YOUR TEAM HERE 👇
 const teamMembers = [
@@ -56,6 +71,11 @@ export default function Team() {
           viewport={{ once: true }}
           className="group relative bg-neutral-900/50 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition duration-500 flex flex-col"
         >
+          {/* BRANDING: The "C" Logo in the corner (Responsive Size) */}
+          <div className="absolute top-2 right-2 md:top-4 md:right-4 w-6 h-6 md:w-10 md:h-10 bg-white rounded md:rounded-lg flex items-center justify-center shadow-xl z-20 group-hover:scale-110 transition-transform duration-300">
+             <span className="text-black text-xs md:text-xl font-black tracking-tighter">C</span>
+          </div>
+
           {/* IMAGE SECTION */}
           {/* CHANGED: h-40 on mobile, h-64 on desktop */}
           <div className="h-40 md:h-64 overflow-hidden relative bg-neutral-800">
@@ -65,7 +85,7 @@ export default function Team() {
                <img 
                  src={member.image} 
                  alt={member.name} 
-                 className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                 className="w-full h-full object-cover group-hover:scale-105 transition duration-700 grayscale group-hover:grayscale-0"
                />
             ) : (
                <div className="w-full h-full flex items-center justify-center text-neutral-600 text-[10px]">
@@ -98,7 +118,8 @@ export default function Team() {
                 <Linkedin size={14} className="md:w-4 md:h-4" />
               </div>
               <div className="p-1.5 md:p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer">
-                <Twitter size={14} className="md:w-4 md:h-4" />
+                {/* Replaced Twitter with XLogo */}
+                <XLogo size={14} className="md:w-4 md:h-4" />
               </div>
               <div className="p-1.5 md:p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer">
                 <Github size={14} className="md:w-4 md:h-4" />
