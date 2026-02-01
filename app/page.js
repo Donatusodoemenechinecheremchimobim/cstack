@@ -128,8 +128,7 @@ export default function Home() {
          </div>
       </section>
 
-      {/* 4. TEAM SECTION */}
-      {/* ADDED id="team" HERE SO NAVBAR LINK WORKS */}
+      {/* 4. TEAM SECTION - FIXED: Added id="team" */}
       <section id="team" className="py-24 border-t border-white/10 scroll-mt-24">
         <div className="text-center mb-16 px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">The Leadership</h2>
@@ -140,4 +139,4 @@ export default function Home() {
 
     </main>
   );
-        }
+           }
