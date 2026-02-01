@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, User, LogOut, ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
-// ADDED "TEAM" TO THE LIST HERE
+// 👇 VERIFIED LINKS: Team now goes to "/team" page 👇
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "Projects", href: "/work" },
-  { name: "Team", href: "/team" }
+  { name: "Work", href: "/work" },
+  { name: "Team", href: "/team" }, // <--- THIS IS THE FIX
   { name: "Pricing", href: "/pricing" },
 ];
 
