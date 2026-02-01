@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 // 👇 VERIFIED LINKS: Team now goes to "/team" page 👇
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "Work", href: "/work" },
+  { name: "Projects", href: "/work" },
   { name: "Team", href: "/team" }, // <--- THIS IS THE FIX
   { name: "Pricing", href: "/pricing" },
 ];
