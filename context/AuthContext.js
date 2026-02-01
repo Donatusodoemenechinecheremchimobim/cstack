@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
+import Preloader from '../components/Preloader'; // <--- IMPORT THIS
 
 const AuthContext = createContext({});
 
@@ -14,25 +15,18 @@ export const AuthContextProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // This listener runs automatically when the app starts
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        // User is logged in
-        setUser(currentUser);
-      } else {
-        // User is logged out
-        setUser(null);
-      }
-      setLoading(false);
+      setUser(currentUser ? currentUser : null);
+      // Keep the loader visible for at least 1.5 seconds so it looks cool
+      setTimeout(() => setLoading(false), 1500); 
     });
-
     return () => unsubscribe();
   }, []);
 
   const logOut = async () => {
     try {
       await signOut(auth);
-      router.push('/'); // Send them home after logout
+      router.push('/');
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -40,8 +34,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, loading, logOut }}>
-      {/* We wait for loading to finish before showing the app to prevent flashing */}
-      {!loading && children}
+      {loading ? <Preloader /> : children} {/* <--- SHOW PRELOADER HERE */}
     </AuthContext.Provider>
   );
 };
