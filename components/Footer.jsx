@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
-import { Github, Instagram, Linkedin, MessageCircle, Shield } from "lucide-react";
+import { Github, Linkedin, Activity } from "lucide-react";
 
-// The Official X Logo (Custom SVG)
-const XLogo = ({ size = 20, className }) => (
+// 1. The Official X Logo (Custom SVG)
+const XLogo = ({ size = 18, className }) => (
   <svg 
     role="img" 
     viewBox="0 0 24 24" 
@@ -17,68 +16,57 @@ const XLogo = ({ size = 20, className }) => (
   </svg>
 );
 
-const socialLinks = [
-  { name: "X", href: "https://x.com/yourhandle", icon: XLogo, hover: "hover:text-white" }, // Updated to X
-  { name: "Instagram", href: "https://instagram.com/yourhandle", icon: Instagram, hover: "hover:text-pink-500" },
-  { name: "LinkedIn", href: "https://linkedin.com/in/yourprofile", icon: Linkedin, hover: "hover:text-blue-700" },
-  { name: "WhatsApp", href: "https://wa.me/2348144462467", icon: MessageCircle, hover: "hover:text-green-500" },
-];
-
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/10 pt-20 pb-10 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+    <footer className="border-t border-white/10 bg-black pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand Block */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                 <span className="text-black text-lg font-black tracking-tighter">C</span>
-              </div>
-              <span className="text-xl font-black tracking-tighter uppercase text-white">CSTACK</span>
-            </div>
-            <p className="text-gray-500 max-w-sm text-sm leading-relaxed">
-              Engineering high-performance digital systems for the next generation of founders and enterprises.
+          <div className="col-span-1 md:col-span-2">
+            <h2 className="text-2xl font-extrabold tracking-tighter text-white mb-4">CSTACK</h2>
+            <p className="text-gray-400 max-w-xs text-sm leading-relaxed">
+              A digital product studio, engineering the future of web and mobile. 
+              Based in Nigeria, operating globally.
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Directory</h4>
-            <ul className="space-y-4">
-              <li><Link href="/services" className="text-gray-500 hover:text-white transition text-sm">Capabilities</Link></li>
-              <li><Link href="/work" className="text-gray-500 hover:text-white transition text-sm">Deployments</Link></li>
-              <li><Link href="/pricing" className="text-gray-500 hover:text-white transition text-sm">Pricing</Link></li>
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6">Sitemap</h3>
+            <ul className="space-y-4 text-sm text-gray-500">
+              <li><a href="/work" className="hover:text-white transition">Projects</a></li>
+              <li><a href="/services" className="hover:text-white transition">Services</a></li>
+              <li><a href="/pricing" className="hover:text-white transition">Pricing</a></li>
+              <li><a href="/contact" className="hover:text-white transition">Contact</a></li>
             </ul>
           </div>
 
-          {/* Social Links */}
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Connect</h4>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a 
-                  key={social.name} 
-                  href={social.href} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center text-gray-500 transition-all duration-300 bg-white/5 ${social.hover} hover:border-current hover:-translate-y-1`}
-                >
-                  <social.icon size={20} />
-                </a>
-              ))}
-            </div>
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6">Legal</h3>
+            <ul className="space-y-4 text-sm text-gray-500">
+              <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
+            </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em]">
-            © 2026 CSTACK SYSTEMS LLC. ALL RIGHTS RESERVED.
-          </p>
-          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em]">
-            Ihiagwa, Nigeria // HQ
-          </p>
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            <span className="text-xs text-green-500 font-mono">All Systems Operational</span>
+          </div>
+          
+          <div className="text-xs text-gray-600">
+            © 2026 CSTACK Inc. All rights reserved.
+          </div>
+
+          <div className="flex gap-4">
+            {/* SWAPPED TWITTER FOR X LOGO */}
+            <a href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer">
+              <XLogo size={18} className="text-gray-500 hover:text-white cursor-pointer transition" />
+            </a>
+            <Github size={18} className="text-gray-500 hover:text-white cursor-pointer transition" />
+            <Linkedin size={18} className="text-gray-500 hover:text-white cursor-pointer transition" />
+          </div>
         </div>
       </div>
     </footer>
