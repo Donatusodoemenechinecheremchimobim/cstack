@@ -8,9 +8,9 @@ import {
 } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 
 // Google Icon Component
 const GoogleIcon = () => (
@@ -23,13 +23,12 @@ const GoogleIcon = () => (
 );
 
 export default function Login() {
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // 1. Handle Email/Password (Login OR Sign Up)
   const handleAuth = async (e) => {
     e.preventDefault();
     setError("");
@@ -41,123 +40,142 @@ export default function Login() {
       }
       router.push("/dashboard");
     } catch (err) {
-      if (err.code === 'auth/email-already-in-use') {
-        setError("This email is already registered.");
-      } else if (err.code === 'auth/invalid-credential') {
-        setError("Incorrect email or password.");
-      } else {
-        setError(isLogin ? "Access Denied: Check credentials." : "Registration failed.");
-      }
+      setError(isLogin ? "Invalid credentials." : "Registration failed. Email may be in use.");
     }
   };
 
-  // 2. Handle Google Login
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
       router.push("/dashboard");
     } catch (err) {
-      setError("Google authentication failed.");
+      setError("Google authentication cancelled.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen w-full flex bg-black">
       
-      {/* BACKGROUND EFFECTS */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+      {/* 1. LEFT SIDE - ARTWORK (Visible on Desktop) */}
+      <div className="hidden lg:flex w-1/2 bg-neutral-900 relative items-center justify-center overflow-hidden border-r border-white/10">
+         {/* Abstract Grid Background */}
+         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]"></div>
 
-      {/* BACK LINK - Fixed Z-Index */}
-      <Link 
-        href="/" 
-        className="absolute top-8 left-8 text-gray-400 hover:text-white flex items-center gap-2 transition-colors relative z-50 group"
-      >
-        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to CSTACK
-      </Link>
+         <div className="relative z-10 text-center p-12">
+            <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-2xl mx-auto mb-8">
+               <span className="text-black text-6xl font-black tracking-tighter">C</span>
+            </div>
+            <h1 className="text-5xl font-black text-white tracking-tighter mb-4">SYSTEM ACCESS.</h1>
+            <div className="flex flex-col gap-2 text-gray-500 font-mono text-xs uppercase tracking-widest">
+               <p>Secure Connection Established</p>
+               <p>Encryption: AES-256 / TLS 1.3</p>
+               <p>Location: Nigeria (HQ)</p>
+            </div>
+         </div>
+      </div>
 
-      <motion.div 
-        layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-neutral-900/50 border border-white/10 p-8 rounded-2xl backdrop-blur-xl relative z-40"
-      >
-        <div className="flex justify-center mb-8">
-          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-             <span className="text-black text-2xl font-black tracking-tighter">C</span>
-          </div>
-        </div>
+      {/* 2. RIGHT SIDE - FORM */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-24 relative bg-black">
+         {/* Back Link - Top Left */}
+         <Link 
+            href="/" 
+            className="absolute top-8 left-8 text-gray-400 hover:text-white flex items-center gap-2 transition-colors group z-50 font-bold text-xs uppercase tracking-widest"
+         >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+            Back to Base
+         </Link>
 
-        <motion.h2 layout className="text-2xl font-bold text-center text-white mb-2">
-          {isLogin ? "Client Portal" : "Create Account"}
-        </motion.h2>
-        <motion.p layout className="text-gray-400 text-center text-sm mb-8">
-          {isLogin ? "Enter your secure credentials to continue." : "Join the ecosystem and start building."}
-        </motion.p>
+         <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-md w-full mx-auto"
+         >
+            {/* Mobile Logo (Visible only on mobile) */}
+            <div className="lg:hidden mb-12 flex justify-center">
+               <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center">
+                  <span className="text-black text-4xl font-black tracking-tighter">C</span>
+               </div>
+            </div>
 
-        {/* GOOGLE SIGN IN BUTTON */}
-        <button 
-          onClick={handleGoogle}
-          className="w-full bg-white text-black font-bold py-3.5 rounded-lg hover:bg-gray-100 transition-all mb-6 flex items-center justify-center gap-3 shadow-lg active:scale-95"
-        >
-          <GoogleIcon />
-          <span className="text-sm font-bold tracking-wide">
-            {isLogin ? "Sign in with Google" : "Sign up with Google"}
-          </span>
-        </button>
+            <div className="mb-10">
+               <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">
+                  {isLogin ? "Welcome Back." : "Join the Team."}
+               </h2>
+               <p className="text-gray-400">
+                  {isLogin ? "Enter your credentials to access the command center." : "Create your specialized profile."}
+               </p>
+            </div>
 
-        <div className="relative mb-6">
-          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
-          <div className="relative flex justify-center text-xs uppercase"><span className="bg-black/50 px-2 text-gray-500 backdrop-blur-md">Or continue with email</span></div>
-        </div>
-
-        <form onSubmit={handleAuth} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              placeholder="admin@cstack.com"
-              className="w-full bg-black/50 border border-white/10 text-white p-4 rounded-lg focus:border-blue-500 focus:outline-none transition-colors text-sm placeholder:text-gray-600"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full bg-black/50 border border-white/10 text-white p-4 rounded-lg focus:border-blue-500 focus:outline-none transition-colors text-sm placeholder:text-gray-600"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          {error && <p className="text-red-500 text-xs text-center font-bold uppercase tracking-widest bg-red-500/10 p-2 rounded">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-500 transition-transform active:scale-95 uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(37,99,235,0.3)]"
-          >
-            {isLogin ? "Authenticate" : "Create Account"}
-          </button>
-        </form>
-
-        {/* TOGGLE SWITCH */}
-        <div className="mt-6 text-center">
-          <p className="text-gray-500 text-sm">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            {/* Google Button */}
             <button 
-              onClick={() => { setIsLogin(!isLogin); setError(""); }}
-              className="text-white font-bold hover:underline transition-all"
+               onClick={handleGoogle}
+               className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-100 transition-all mb-8 flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-[0.98]"
             >
-              {isLogin ? "Create one" : "Log in"}
+               <GoogleIcon />
+               <span className="text-sm">Continue with Google</span>
             </button>
-          </p>
-        </div>
-      </motion.div>
+
+            <div className="relative mb-8">
+               <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
+               <div className="relative flex justify-center text-xs uppercase tracking-widest"><span className="bg-black px-4 text-gray-500">Or use email</span></div>
+            </div>
+
+            <form onSubmit={handleAuth} className="space-y-5">
+               <div className="group">
+                  <label className="block text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 ml-1">Email Address</label>
+                  <input
+                     type="email"
+                     className="w-full bg-neutral-900/50 border border-white/10 text-white p-4 rounded-xl focus:border-blue-500 focus:bg-neutral-900 focus:outline-none transition-all placeholder:text-gray-700"
+                     placeholder="name@cstack.com"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                     required
+                  />
+               </div>
+               
+               <div className="group">
+                  <label className="block text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 ml-1">Password</label>
+                  <input
+                     type="password"
+                     className="w-full bg-neutral-900/50 border border-white/10 text-white p-4 rounded-xl focus:border-blue-500 focus:bg-neutral-900 focus:outline-none transition-all placeholder:text-gray-700"
+                     placeholder="••••••••••••"
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
+                     required
+                  />
+               </div>
+
+               {error && (
+                  <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500 text-xs font-bold text-center">
+                     {error}
+                  </motion.div>
+               )}
+
+               <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-500 transition-all shadow-[0_4px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_4px_40px_rgba(37,99,235,0.5)] active:scale-[0.98] uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+               >
+                  {isLogin ? "Authenticate System" : "Create Account"}
+               </button>
+            </form>
+
+            <div className="mt-8 text-center">
+               <p className="text-gray-500 text-sm">
+                  {isLogin ? "New to CSTACK? " : "Already have access? "}
+                  <button 
+                     onClick={() => { setIsLogin(!isLogin); setError(""); }}
+                     className="text-white font-bold hover:text-blue-500 transition-colors ml-1"
+                  >
+                     {isLogin ? "Initialize Account" : "Log In"}
+                  </button>
+               </p>
+            </div>
+         </motion.div>
+      </div>
     </div>
   );
-    }
+                 }
