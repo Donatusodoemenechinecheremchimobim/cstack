@@ -96,7 +96,7 @@ export default function Home() {
 
           <div className="flex flex-col md:flex-row justify-center gap-4 mt-8">
              <Link href="/pricing" className="bg-white text-black px-8 py-4 font-bold rounded-lg hover:scale-105 transition shadow-[0_0_40px_rgba(255,255,255,0.2)] uppercase tracking-widest text-sm">
-               View Protocols
+               View Projects
              </Link>
              <Link href="/dashboard" className="px-8 py-4 border border-white/20 text-white rounded-lg font-bold hover:bg-white/10 transition uppercase tracking-widest text-sm">
                Command Center

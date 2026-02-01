@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6">Sitemap</h3>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><a href="/work" className="hover:text-white transition">Work</a></li>
+              <li><a href="/work" className="hover:text-white transition">Projects</a></li>
               <li><a href="/services" className="hover:text-white transition">Services</a></li>
               <li><a href="/pricing" className="hover:text-white transition">Pricing</a></li>
               <li><a href="/contact" className="hover:text-white transition">Contact</a></li>
