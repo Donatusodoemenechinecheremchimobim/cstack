@@ -1,8 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin } from "lucide-react";
+import { Github, Instagram } from "lucide-react";
 
-// The Official X Logo Component
+// 1. The Official X Logo Component
 const XLogo = () => (
   <svg 
     role="img" 
@@ -24,7 +24,7 @@ export default function SocialSidebar() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-6 text-gray-500"
       >
-        {/* X (Formerly Twitter) */}
+        {/* X (Formerly Twitter) - HOVER TO WHITE */}
         <a href="https://x.com/yourhandle" target="_blank" className="hover:text-white transition-colors hover:scale-110 duration-300">
           <XLogo />
         </a>
