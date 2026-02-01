@@ -9,8 +9,8 @@ import {
 import { auth } from "../../lib/firebase";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+// REMOVED: Link import is no longer needed for the back button
+// REMOVED: ArrowLeft import
 
 // Google Icon Component
 const GoogleIcon = () => (
@@ -55,7 +55,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-black">
+    <div className="min-h-screen w-full flex bg-black relative">
       
       {/* 1. LEFT SIDE - ARTWORK (Visible on Desktop) */}
       <div className="hidden lg:flex w-1/2 bg-neutral-900 relative items-center justify-center overflow-hidden border-r border-white/10">
@@ -79,15 +79,7 @@ export default function Login() {
 
       {/* 2. RIGHT SIDE - FORM */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-24 relative bg-black">
-         {/* Back Link - Top Left */}
-         <Link 
-            href="/" 
-            className="absolute top-8 left-8 text-gray-400 hover:text-white flex items-center gap-2 transition-colors group z-50 font-bold text-xs uppercase tracking-widest"
-         >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
-            Back to Base
-         </Link>
-
+         
          <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -163,7 +155,7 @@ export default function Login() {
                </button>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center pb-8 lg:pb-0">
                <p className="text-gray-500 text-sm">
                   {isLogin ? "New to CSTACK? " : "Already have access? "}
                   <button 
