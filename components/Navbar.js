@@ -2,12 +2,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
+// ADDED "TEAM" TO THE LIST HERE
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "Projects", href: "/work" },
+  { name: "Work", href: "/work" },
+  { name: "Team", href: "/#team" }, 
   { name: "Pricing", href: "/pricing" },
 ];
 
@@ -16,11 +18,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // 1. HARD SCROLL LOCK: Prevents background from moving at all
+  // 1. HARD SCROLL LOCK
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      document.body.style.height = '100dvh'; // Lock height to prevent jumps
+      document.body.style.height = '100dvh';
     } else {
       document.body.style.overflow = 'unset';
       document.body.style.height = 'auto';
@@ -45,7 +47,7 @@ export default function Navbar() {
       }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           
-          {/* LOGO - THE WHITE "C" BOX */}
+          {/* LOGO */}
           <Link href="/" className="flex items-center gap-3 group relative z-[101]">
             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
               <span className="text-black text-xl font-black tracking-tighter">C</span>
@@ -94,7 +96,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* MOBILE TOGGLE BUTTON */}
+          {/* MOBILE TOGGLE */}
           <button 
             className="md:hidden text-white relative z-[101] p-2" 
             onClick={() => setIsOpen(!isOpen)}
@@ -104,16 +106,16 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* MOBILE MENU - HIGH PERFORMANCE OVERLAY */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ y: "-100%" }}
             animate={{ y: "0%" }}
             exit={{ y: "-100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }} // Spring physics = buttery smooth
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center px-8 h-[100dvh]"
-            style={{ touchAction: "none" }} // Prevents drag-scrolling the background
+            style={{ touchAction: "none" }}
           >
             <div className="flex flex-col gap-8 relative z-50">
               {navLinks.map((link, i) => (
@@ -126,9 +128,10 @@ export default function Navbar() {
                   <Link 
                     href={link.href} 
                     onClick={() => setIsOpen(false)}
-                    className="text-5xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 hover:to-blue-500 transition-all block"
+                    className="group flex items-center justify-between text-5xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 hover:to-blue-500 transition-all"
                   >
                     {link.name}
+                    <ArrowRight className="text-white opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" size={32} />
                   </Link>
                 </motion.div>
               ))}
@@ -166,9 +169,10 @@ export default function Navbar() {
                   <Link 
                     href="/login" 
                     onClick={() => setIsOpen(false)}
-                    className="text-2xl font-bold text-white flex items-center gap-3"
+                    className="text-2xl font-bold text-white flex items-center gap-3 group"
                   >
-                    Client Login <span className="text-blue-500">→</span>
+                    Client Login 
+                    <ArrowRight size={24} className="text-blue-500 group-hover:translate-x-2 transition-transform" />
                   </Link>
                 )}
               </motion.div>
@@ -178,4 +182,4 @@ export default function Navbar() {
       </AnimatePresence>
     </>
   );
-}
+  }
