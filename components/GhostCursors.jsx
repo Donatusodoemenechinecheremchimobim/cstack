@@ -11,8 +11,10 @@ export default function GhostCursors() {
   if (!isMounted) return null;
 
   return (
+    // Hidden on mobile, visible on desktop
     <div className="pointer-events-none fixed inset-0 z-[40] overflow-hidden hidden md:block">
-      {/* CURSOR 1: Client 1 (Blue) */}
+      
+      {/* 1. Client 1 (Blue) */}
       <Cursor 
         label="Client 1" 
         color="#3b82f6" 
@@ -21,7 +23,7 @@ export default function GhostCursors() {
         duration={12} 
       />
 
-      {/* CURSOR 2: Visitor (Pink) */}
+      {/* 2. Visitor (Pink) */}
       <Cursor 
         label="Visitor (LDN)" 
         color="#ec4899" 
@@ -29,6 +31,26 @@ export default function GhostCursors() {
         yPath={[600, 100, 500, 800, 600]} 
         duration={15} 
         delay={2}
+      />
+
+      {/* 3. Engineer (Cyan) - NEW */}
+      <Cursor 
+        label="Engineer (SF)" 
+        color="#06b6d4" 
+        xPath={[50, 400, 800, 200, 50]} 
+        yPath={[800, 500, 200, 700, 800]} 
+        duration={18} 
+        delay={5}
+      />
+
+      {/* 4. Designer (Orange) - NEW */}
+      <Cursor 
+        label="Designer (NYC)" 
+        color="#f97316" 
+        xPath={[500, 900, 100, 500, 500]} 
+        yPath={[50, 400, 600, 50, 50]} 
+        duration={20} 
+        delay={8}
       />
     </div>
   );
@@ -58,10 +80,9 @@ function Cursor({ label, color, xPath, yPath, duration, delay = 0 }) {
         style={{ color: color }}
       />
       <div 
-        className="px-2 py-0.5 rounded-md text-[10px] font-bold text-white whitespace-nowrap ml-3 -mt-1 shadow-lg"
-        style={{ backgroundColor: color }}
+        className="px-2 py-0.5 rounded-md text-[10px] font-bold text-white whitespace-nowrap ml-3 -mt-1 shadow-lg backdrop-blur-sm bg-black/50 border border-white/10"
       >
-        {label}
+        <span style={{ color: color }}>●</span> {label}
       </div>
     </motion.div>
   );
