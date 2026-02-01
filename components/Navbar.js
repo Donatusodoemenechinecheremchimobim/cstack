@@ -8,8 +8,8 @@ import { useAuth } from "../context/AuthContext";
 // ADDED "TEAM" TO THE LIST HERE
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "Work", href: "/work" },
-  { name: "Team", href: "/#team" }, 
+  { name: "Projects", href: "/work" },
+  { name: "Team", href: "/team" }
   { name: "Pricing", href: "/pricing" },
 ];
 
