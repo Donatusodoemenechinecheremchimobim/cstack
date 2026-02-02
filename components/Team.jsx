@@ -47,7 +47,7 @@ const teamMembers = [
     name: "Andrew Udochukwu",
     role: "Creative Director",
     bio: "Ensuring pixel-perfect design systems across all deployed protocols.",
-    image: "/team/member5.jpg",
+    image: "/team/member5.jpeg",
   },
   {
     name: "Martins Nwokeukwu",
