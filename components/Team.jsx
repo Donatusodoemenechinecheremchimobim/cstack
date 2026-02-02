@@ -35,7 +35,7 @@ const teamMembers = [
     name: "Manuchimso Christian",
     role: "Product Director",
     bio: "Bridging the gap between complex code and intuitive user experiences.",
-    image: "/team/member3.jpg",
+    image: "/team/member11.jpg",
   },
   {
     name: "Princewill Ezechukwu",
